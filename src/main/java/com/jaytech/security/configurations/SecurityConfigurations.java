@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfigurations  {
     /*At startup spring will look for a bean of type security filter chain and this security filter chain
-    is the bean responsible of configuring all the http security of our application*/
+    is the bean responsible for configuring all the http security of our application*/
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;

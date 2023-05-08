@@ -13,7 +13,6 @@ public class MockController {
 
     @GetMapping
     public ResponseEntity<CustomHttpResponse> test() {
-        System.out.println("Entered the controller");
         return ResponseEntity.ok(CustomHttpResponse.builder().httpStatus(HttpStatus.ACCEPTED).message("Success").build());
     }
 
