@@ -1,5 +1,6 @@
 package com.jaytech.security.authentication;
 
+import com.jaytech.security.models.user.Users;
 import com.jaytech.security.roles.dto.CustomHttpResponse;
 import com.jaytech.security.service.implementation.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,11 @@ public class AuthenticationController {
     public ResponseEntity<CustomHttpResponse> registerUser(
             @RequestBody RegisterRequest registerRequest
     ) {
-        return authenticationService.registerUser(registerRequest).getHttpStatus().is4xxClientError() ?
-                ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(authenticationService.registerUser(registerRequest)) :
-                ResponseEntity.ok(authenticationService.registerUser(registerRequest));
+        CustomHttpResponse response = authenticationService.registerUser(registerRequest);
+
+        return response.getHttpStatus().is4xxClientError() ?
+                ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(response) :
+                ResponseEntity.ok(response);
     }
 
     @PostMapping("/sign-in")

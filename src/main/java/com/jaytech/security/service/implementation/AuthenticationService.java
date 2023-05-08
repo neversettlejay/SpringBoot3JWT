@@ -70,6 +70,12 @@ public class AuthenticationService implements com.jaytech.security.service.defin
 
         usersRepository.save(registerUser);
 
+        availableRolesFromTheDb.stream().forEach(roles -> {
+            roles.setUsersForRoles(registerUser);
+        });
+
+        rolesRepository.saveAll(availableRolesFromTheDb);
+
         var jwtToken = jwtService.generateJwtTokenWithoutExtractingClaims(registerUser);
         return CustomHttpResponse.builder().httpStatus(HttpStatus.ACCEPTED).message("Successfully retrieved token").data(AuthenticationResponse.builder().jsonWebToken(jwtToken).build()).build();
 

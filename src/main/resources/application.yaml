@@ -2,7 +2,7 @@ server:
     port: 7465
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/jwt_security
+    url: jdbc:postgresql://localhost:5432/jwt_security_final
     username: dev
     password: Simform@123
     driver-class-name: org.postgresql.Driver

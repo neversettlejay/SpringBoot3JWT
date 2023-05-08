@@ -6,18 +6,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.mapping.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.jaytech.security.models.parent.allmodels.CommonModelOperationsLogs;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
@@ -40,6 +37,13 @@ public class Users/* extends CommonModelOperationsLogs*/ implements UserDetails 
     private String password;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, targetEntity = Roles.class)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id")
+            , inverseJoinColumns = @JoinColumn(name = "roles_id", referencedColumnName = "id")
+    )
+    @JsonBackReference
+    @ToString.Exclude
+
+
     private Collection<Roles> roles;
 
     @Column(name = "is_account_non_expired", columnDefinition = "boolean default true")
@@ -50,7 +54,6 @@ public class Users/* extends CommonModelOperationsLogs*/ implements UserDetails 
     private Boolean isCredentialsNonExpired = true;
     @Column(name = "is_enabled", columnDefinition = "boolean default true")
     private Boolean isEnabled = true;
-
 
 
     private LocalDateTime createdAt;

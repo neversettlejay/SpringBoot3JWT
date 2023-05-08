@@ -1,18 +1,13 @@
 package com.jaytech.security.models.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jaytech.security.models.parent.allmodels.CommonModelOperationsLogs;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Data
 @Builder
@@ -33,6 +28,13 @@ public class Roles/* extends CommonModelOperationsLogs*/ {
     private LocalDateTime deletedAt;
     private String deletedBy;
 
+    @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
+    @ToString.Exclude
+    private Collection<Users> users;
 
-    
+
+    public void setUsersForRoles(Users users) {
+        this.users.add(users);
+    }
 }
