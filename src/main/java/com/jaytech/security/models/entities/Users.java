@@ -3,6 +3,7 @@ package com.jaytech.security.models.entities;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -61,7 +62,8 @@ public class Users/* extends CommonModelOperationsLogs*/ implements UserDetails 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         try {
-            return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).toList(); /*As in our situation a user might have multiple roles*/
+            List<SimpleGrantedAuthority> simpleGrantedAuthorities= roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).toList(); /*As in our situation a user might have multiple roles*/
+        return simpleGrantedAuthorities;
         } catch (Exception e) {
             throw new RuntimeException("Exception in  'getAuthorities' method");
         }

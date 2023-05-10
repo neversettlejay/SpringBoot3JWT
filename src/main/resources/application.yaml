@@ -1,17 +1,15 @@
 jay-tech:
   application:
     security:
-      secret-key:
-      access-token-expiry-date:
-      refresh-token-expiry-date:
+      # In milliseconds (1 Hour)
+      access-token-expiry-date: 3600000
+      # In milliseconds (180 Days)
+      refresh-token-expiry-date: 15552000000
 
-server:
-    port: 7465
 spring:
+  profiles:
+    active: development
   datasource:
-    url: jdbc:postgresql://localhost:5432/jwt_security_final
-    username: dev
-    password: Simform@123
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

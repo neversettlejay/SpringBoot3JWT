@@ -1,0 +1,4 @@
+server:
+  port: 7465
+  servlet:
+    context-path: /production
