@@ -1,10 +1,8 @@
 package com.jaytech.security.service.definition;
 
-import com.jaytech.security.authentication.AuthenticationRequest;
-import com.jaytech.security.authentication.AuthenticationResponse;
-import com.jaytech.security.authentication.RegisterRequest;
-import com.jaytech.security.roles.dto.CustomHttpResponse;
-import org.springframework.http.ResponseEntity;
+import com.jaytech.security.models.payload.users.AuthenticationRequest;
+import com.jaytech.security.models.payload.users.RegisterRequest;
+import com.jaytech.security.models.payload.transfer.CustomHttpResponse;
 
 public interface AuthenticationService {
     CustomHttpResponse registerUser(RegisterRequest registerRequest);

@@ -1,4 +1,4 @@
-package com.jaytech.security;
+package com.jaytech.security.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

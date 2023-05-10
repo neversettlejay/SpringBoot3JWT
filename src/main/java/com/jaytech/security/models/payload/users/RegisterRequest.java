@@ -1,4 +1,4 @@
-package com.jaytech.security.authentication;
+package com.jaytech.security.models.payload.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

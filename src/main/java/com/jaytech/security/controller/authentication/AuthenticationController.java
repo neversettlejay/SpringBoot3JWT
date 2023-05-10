@@ -1,7 +1,8 @@
-package com.jaytech.security.authentication;
+package com.jaytech.security.controller.authentication;
 
-import com.jaytech.security.models.user.Users;
-import com.jaytech.security.roles.dto.CustomHttpResponse;
+import com.jaytech.security.models.payload.users.AuthenticationRequest;
+import com.jaytech.security.models.payload.users.RegisterRequest;
+import com.jaytech.security.models.payload.transfer.CustomHttpResponse;
 import com.jaytech.security.service.implementation.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

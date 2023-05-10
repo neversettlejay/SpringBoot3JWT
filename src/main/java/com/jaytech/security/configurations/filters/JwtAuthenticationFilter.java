@@ -1,4 +1,4 @@
-package com.jaytech.security.configurations;
+package com.jaytech.security.configurations.filters;
 
 import com.jaytech.security.service.implementation.JwtService;
 import io.jsonwebtoken.Jwts;

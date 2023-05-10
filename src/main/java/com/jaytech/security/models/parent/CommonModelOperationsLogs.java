@@ -1,4 +1,4 @@
-package com.jaytech.security.models.parent.allmodels;
+package com.jaytech.security.models.parent;
 
 import java.time.LocalDateTime;
 

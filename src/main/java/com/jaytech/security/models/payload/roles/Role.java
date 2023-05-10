@@ -1,4 +1,4 @@
-package com.jaytech.security.roles.dto;
+package com.jaytech.security.models.payload.roles;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

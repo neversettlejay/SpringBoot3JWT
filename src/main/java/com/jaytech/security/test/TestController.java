@@ -1,6 +1,6 @@
-package com.jaytech.security.mock;
+package com.jaytech.security.test;
 
-import com.jaytech.security.roles.dto.CustomHttpResponse;
+import com.jaytech.security.models.payload.transfer.CustomHttpResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/test/back-end")
-public class MockController {
+public class TestController {
 
     @GetMapping
     public ResponseEntity<CustomHttpResponse> test() {
-        return ResponseEntity.ok(CustomHttpResponse.builder().httpStatus(HttpStatus.ACCEPTED).message("Success").build());
+        return ResponseEntity.ok(CustomHttpResponse.builder().httpStatus(HttpStatus.OK).httpStatusCode(HttpStatus.OK.value()).message("Success").build());
     }
 
 }

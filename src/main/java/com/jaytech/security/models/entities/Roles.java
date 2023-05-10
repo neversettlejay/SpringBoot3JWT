@@ -1,7 +1,7 @@
-package com.jaytech.security.models.user;
+package com.jaytech.security.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jaytech.security.models.parent.allmodels.CommonModelOperationsLogs;
+import com.jaytech.security.models.entities.Users;
 
 import jakarta.persistence.*;
 import lombok.*;

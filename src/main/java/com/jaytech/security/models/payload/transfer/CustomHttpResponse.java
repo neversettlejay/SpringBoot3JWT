@@ -1,4 +1,4 @@
-package com.jaytech.security.roles.dto;
+package com.jaytech.security.models.payload.transfer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 @Builder
 public class CustomHttpResponse<T>  {
     private HttpStatus httpStatus;
+    private Integer httpStatusCode;
     private String message;
     private T data;
 }

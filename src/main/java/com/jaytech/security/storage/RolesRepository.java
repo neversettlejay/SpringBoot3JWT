@@ -1,7 +1,6 @@
-package com.jaytech.security.repository;
+package com.jaytech.security.storage;
 
-import com.jaytech.security.models.user.Roles;
-import com.jaytech.security.models.user.Users;
+import com.jaytech.security.models.entities.Roles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
