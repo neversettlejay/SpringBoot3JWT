@@ -1,12 +1,17 @@
 package com.jaytech.security.controller.roles;
 
+import com.jaytech.security.models.entities.Features;
 import com.jaytech.security.models.entities.Roles;
+import com.jaytech.security.models.payload.roles.Feature;
+import com.jaytech.security.models.payload.roles.Operation;
+import com.jaytech.security.service.implementation.RolesService;
 import com.jaytech.security.storage.RolesRepository;
 import com.jaytech.security.models.payload.transfer.CustomHttpResponse;
 import com.jaytech.security.models.payload.roles.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -17,27 +22,40 @@ import java.util.*;
 @RequiredArgsConstructor
 public class RolesController {
 
+    private final RolesService rolesService;
     private final RolesRepository rolesRepository;
 
     @PostMapping
     ResponseEntity<CustomHttpResponse> addNewRole(@RequestBody Role role) {
-        Set<Roles> existingRoles = new HashSet<>();
-        rolesRepository.findByRoleNames(List.of(role.getRole())).ifPresent(roles -> existingRoles.addAll(roles));
+        CustomHttpResponse customHttpResponse = rolesService.addNewRole(role);
 
-        if (!existingRoles.isEmpty())
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(CustomHttpResponse.builder().httpStatus(HttpStatus.CONFLICT).httpStatusCode(HttpStatus.CONFLICT.value()).message("Roles '" + existingRoles + "' already exist in database").build());
+        return switch (customHttpResponse.getHttpStatus()) {
+            case CONFLICT -> ResponseEntity.status(HttpStatus.CONFLICT).body(customHttpResponse);
+            case OK -> ResponseEntity.status(HttpStatus.OK).body(customHttpResponse);
+            default -> ResponseEntity.status(HttpStatus.NO_CONTENT).body(customHttpResponse);
+        };
+    }
 
+    @PostMapping("/operation")
+    ResponseEntity<CustomHttpResponse> addNewOperation(@RequestBody Operation operation) {
+        CustomHttpResponse customHttpResponse = rolesService.addNewOperation(operation);
 
-        var roleToAdd = Roles.builder()
-                .role(role.getRole())
-                .description(role.getDescription())
-                .createdBy("Developer")
-                .createdAt(LocalDateTime.now())
-                .build();
+        return switch (customHttpResponse.getHttpStatus()) {
+            case CONFLICT -> ResponseEntity.status(HttpStatus.CONFLICT).body(customHttpResponse);
+            case OK -> ResponseEntity.status(HttpStatus.OK).body(customHttpResponse);
+            default -> ResponseEntity.status(HttpStatus.NO_CONTENT).body(customHttpResponse);
+        };
+    }
 
+    @PostMapping("/feature")
+    ResponseEntity<CustomHttpResponse> addNewFeature(@RequestBody Feature feature) {
+        CustomHttpResponse customHttpResponse = rolesService.addNewFeature(feature);
 
-        rolesRepository.save(roleToAdd);
-        return ResponseEntity.ok(CustomHttpResponse.builder().httpStatus(HttpStatus.OK).httpStatusCode(HttpStatus.OK.value()).message("Role '" + role.getRole() + "' added successfully").build());
+        return switch (customHttpResponse.getHttpStatus()) {
+            case CONFLICT -> ResponseEntity.status(HttpStatus.CONFLICT).body(customHttpResponse);
+            case OK -> ResponseEntity.status(HttpStatus.OK).body(customHttpResponse);
+            default -> ResponseEntity.status(HttpStatus.NO_CONTENT).body(customHttpResponse);
+        };
     }
 
     @GetMapping

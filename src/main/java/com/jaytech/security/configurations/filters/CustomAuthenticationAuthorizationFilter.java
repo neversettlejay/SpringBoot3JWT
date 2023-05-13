@@ -8,17 +8,20 @@ import lombok.NonNull;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
 @Order(Ordered.LOWEST_PRECEDENCE)
-public class CustomAuthenticationAuthorizationFilter extends OncePerRequestFilter {
+public class CustomAuthenticationAuthorizationFilter extends OncePerRequestFilter{
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
+
+//       String adminDataAccessKey= request.getHeader("admin-data-access-key")
 
 
         // pass it to the next filter

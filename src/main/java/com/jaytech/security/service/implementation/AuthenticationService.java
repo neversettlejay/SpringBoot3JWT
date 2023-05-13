@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +29,7 @@ public class AuthenticationService implements com.jaytech.security.service.defin
     private final UsersRepository usersRepository;
     private final RolesRepository rolesRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+    private final AccessTokenService accessTokenService;
     private final AuthenticationManager authenticationManager;
 
     @Override
@@ -71,7 +72,7 @@ public class AuthenticationService implements com.jaytech.security.service.defin
 
         rolesRepository.saveAll(availableRolesFromTheDb);
 
-        var jwtToken = jwtService.generateJwtTokenWithoutExtractingClaims(registerUser);
+        var jwtToken = accessTokenService.generateJwtTokenWithoutExtractingClaims(registerUser);
         return CustomHttpResponse.builder().httpStatus(HttpStatus.OK).httpStatusCode(HttpStatus.OK.value()).message("Successfully retrieved token").data(AuthenticationResponse.builder().jsonWebToken(jwtToken).build()).build();
 
 
@@ -82,7 +83,7 @@ public class AuthenticationService implements com.jaytech.security.service.defin
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
         //if we get to the below code that means the user is authenticated
         var user = usersRepository.findByUsername(authenticationRequest.getUsername()).orElseThrow(() -> new UsernameNotFoundException("Username '" + authenticationRequest.getUsername() + "' not found"));
-        var jwtToken = jwtService.generateJwtTokenWithoutExtractingClaims(user);
+        var jwtToken = accessTokenService.generateJwtTokenWithoutExtractingClaims(user);
         return CustomHttpResponse.builder().httpStatus(HttpStatus.OK).httpStatusCode(HttpStatus.OK.value()).message("Successfully retrieved token").data(AuthenticationResponse.builder().jsonWebToken(jwtToken).build()).build();
     }
 }

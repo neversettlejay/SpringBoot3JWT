@@ -23,6 +23,7 @@ public class SecurityConfigurations  {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+
     httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/back-end/**")

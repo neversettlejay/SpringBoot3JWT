@@ -14,6 +14,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
+/**
+ * In JWT-based authentication, the server typically validates the user's authenticity and authorization based on the information present in the JWT token. There are a few parameters within the JWT that the server can use to determine the validity of the user:
+ *
+ * Issuer (iss): The "iss" claim indicates the issuer or the entity that issued the JWT. The server can verify the issuer's identity and trustworthiness. It can check if the issuer is a trusted authority in the authentication process.
+ *
+ * Subject (sub): The "sub" claim identifies the subject of the JWT, which can represent the user or entity associated with the token. The server can use this information to identify and authenticate the user.
+ *
+ * Signature Verification: The server can verify the integrity and authenticity of the JWT by validating the signature. The signature is generated using a secret key or a public-private key pair. By verifying the signature, the server ensures that the token hasn't been tampered with and was indeed issued by a trusted entity.
+ *
+ * In addition to these parameters, the server may also consider other custom claims or additional information within the JWT to determine the validity and authorization of the user. The specific validation process can vary depending on the implementation and requirements of the server-side application.
+ */
+
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
@@ -25,6 +38,7 @@ public class ApplicationConfigurations {
     public UserDetailsService userDetailsService() {
         return username -> usersRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User with username '" + username + "' not found"));
     }
+
 
     @Bean
     public AuthenticationProvider authenticationProvider(){

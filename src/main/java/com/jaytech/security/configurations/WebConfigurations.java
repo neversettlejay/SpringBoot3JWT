@@ -13,7 +13,6 @@ public class WebConfigurations {
 
     private final RequestLoggingFilter requestLoggingFilter;
 
-
     @Bean
     public FilterRegistrationBean<RequestLoggingFilter> loggingFilterRegistration() {
         FilterRegistrationBean<RequestLoggingFilter> registrationBean = new FilterRegistrationBean<>();

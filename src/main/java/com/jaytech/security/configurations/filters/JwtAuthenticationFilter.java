@@ -1,7 +1,7 @@
 package com.jaytech.security.configurations.filters;
 
 import com.jaytech.security.models.payload.transfer.EntityCreatedEvent;
-import com.jaytech.security.service.implementation.JwtService;
+import com.jaytech.security.service.implementation.AccessTokenService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter implements
     private HttpServletRequest incomingRequest;
 
 
-    private final JwtService jwtService;
+    private final AccessTokenService accessTokenService;
     // There are many implementations of UserDetailsService available but we want our own implementation
     private final UserDetailsService userDetailsService;
 
@@ -71,11 +71,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter implements
         }
         jwtToken=authorizationHeader.substring(7);
         // After checking JWT token we need to call UserDetailsService to check whether user already exist in our database, but to do that we need to extract the username
-        username=jwtService.extractUsernameFromJwtToken(jwtToken);
+        username=accessTokenService.extractUsernameFromJwtToken(jwtToken);
         if(Objects.nonNull(username) && /*check whether user is not already authenticated, so that we will not have to update SecurityContextHolder again*/ Objects.isNull(SecurityContextHolder.getContext().getAuthentication())){
             // as we have got the username and we know user is not yet authenticated , we need to get user details from the database
             UserDetails userDetails=this.userDetailsService.loadUserByUsername(username);
-            if(jwtService.checkIfJwtTokenIsValid(jwtToken,userDetails)){
+            if(accessTokenService.checkIfJwtTokenIsValid(jwtToken,userDetails)){
 // If user is valid then we need to update our securityContext and sent the request to dispatcher servlet
                //UsernamePasswordAuthenticationToken object is needed by spring in order to update our security context
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());

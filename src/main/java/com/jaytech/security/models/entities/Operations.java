@@ -1,8 +1,7 @@
 package com.jaytech.security.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jaytech.security.models.entities.Users;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,14 +13,14 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "roles")
-public class Roles/* extends CommonModelOperationsLogs*/ {
+@Table(name = "operations")
+public class Operations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) /* Automatically select which generation type is best for us */
     private Long id;
 
     @Column(unique = true)
-    private String role;
+    private String operation;
     private String description;
     private LocalDateTime createdAt;
     private String createdBy;
@@ -29,17 +28,4 @@ public class Roles/* extends CommonModelOperationsLogs*/ {
     private String updatedBy;
     private LocalDateTime deletedAt;
     private String deletedBy;
-
-    @ManyToMany(mappedBy = "roles")
-    @JsonBackReference
-    @ToString.Exclude
-    private Collection<Users> users;
-
-
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, targetEntity = Features.class)
-    private Collection<Features> features;
-
-    public void setUsersForRoles(Users users) {
-        this.users.add(users);
-    }
 }

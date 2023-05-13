@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
@@ -24,8 +25,13 @@ public class Users/* extends CommonModelOperationsLogs*/ implements UserDetails 
     private Long id;
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String username;
+
     private String country;
     private String state;
     private LocalDate birthDate;
@@ -38,8 +44,6 @@ public class Users/* extends CommonModelOperationsLogs*/ implements UserDetails 
     )
     @JsonBackReference
     @ToString.Exclude
-
-
     private Collection<Roles> roles;
 
     @Column(name = "is_account_non_expired", columnDefinition = "boolean default true")
@@ -61,9 +65,10 @@ public class Users/* extends CommonModelOperationsLogs*/ implements UserDetails 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         try {
-            List<SimpleGrantedAuthority> simpleGrantedAuthorities= roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).toList(); /*As in our situation a user might have multiple roles*/
-        return simpleGrantedAuthorities;
+            List<SimpleGrantedAuthority> simpleGrantedAuthorities = roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).toList(); /*As in our situation a user might have multiple roles*/
+            return simpleGrantedAuthorities;
         } catch (Exception e) {
             throw new RuntimeException("Exception in  'getAuthorities' method");
         }

@@ -15,6 +15,10 @@ public interface RolesRepository extends JpaRepository<Roles,Long> {
     @Query(value = "SELECT * FROM roles WHERE role IN ?1", nativeQuery = true)
     Optional<Set<Roles>> findByRoleNames(List<String> roleNames);
 
+    @Query(value = "SELECT * FROM roles WHERE role IN ?1 LIMIT 1", nativeQuery = true)
+    Optional<Roles> findFirstByRoleNames(List<String> roleNames);
+
+
     /*
 //    Not working
 
