@@ -6,6 +6,11 @@ jay-tech:
       # In milliseconds (180 Days)
       refresh-token-expiry-date: 15552000000
 
+logging:
+  level:
+    org:
+      springframework: debug
+
 spring:
   profiles:
     active: development
