@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/*Role or user group*/
 public class Role {
     private String role;
     // only existing features to be considered
