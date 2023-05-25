@@ -141,7 +141,7 @@ public class Users/* extends CommonModelOperationsLogs*/ implements UserDetails 
  * When spring security starts and set up the application, it will use an object called UserDetais
  * And this UserDetails is an interface that contains bunch of methods.
  *
- * So whenever you have the class User think always to implement UserDetails interface so that your application user is already a spring user.
+ * So whenever you have the class PocUser think always to implement UserDetails interface so that your application user is already a spring user.
  *
  *
  *

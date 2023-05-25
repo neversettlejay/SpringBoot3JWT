@@ -2,3 +2,7 @@ server:
   port: 7465
   servlet:
     context-path: /uat-testing
+logging:
+  level:
+    org:
+      springframework: debug

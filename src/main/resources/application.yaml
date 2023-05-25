@@ -6,11 +6,6 @@ jay-tech:
       # In milliseconds (180 Days)
       refresh-token-expiry-date: 15552000000
 
-logging:
-  level:
-    org:
-      springframework: debug
-
 spring:
   profiles:
     active: development
@@ -22,6 +17,21 @@ spring:
     show-sql: false
     properties:
       hibernate:
+        generate_statistics: true
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+management:
+  endpoint:
+    beans:
+      cache:
+        time-to-live: "10s"
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#        http://localhost:7465/development/actuator
+

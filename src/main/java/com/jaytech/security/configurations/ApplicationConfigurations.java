@@ -36,7 +36,7 @@ public class ApplicationConfigurations {
     //Bean always should be public
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> usersRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User with username '" + username + "' not found"));
+        return username -> usersRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("PocUser with username '" + username + "' not found"));
     }
 
 

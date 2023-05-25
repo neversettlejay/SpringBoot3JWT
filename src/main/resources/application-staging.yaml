@@ -2,4 +2,8 @@ server:
   port: 7465
   servlet:
     context-path: /staging
+logging:
+  level:
+    org:
+      springframework: debug
 

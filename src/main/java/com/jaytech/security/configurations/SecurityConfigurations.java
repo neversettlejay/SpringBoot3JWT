@@ -26,7 +26,7 @@ public class SecurityConfigurations  {
 
     httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/back-end/**")
+                .requestMatchers("/back-end/**","/actuator/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

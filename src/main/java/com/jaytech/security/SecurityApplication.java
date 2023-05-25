@@ -1,7 +1,5 @@
 package com.jaytech.security;
 
-import com.jaytech.security.configurations.PropertyConfigurations;
-import com.jaytech.security.cryptograpy.utility.GenerateKeys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -22,9 +20,11 @@ import java.security.NoSuchProviderException;
 @RequiredArgsConstructor
 @Slf4j
 public class SecurityApplication {
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SecurityApplication.class, args);
-	}
+        SpringApplication.run(SecurityApplication.class, args);
+
+    }
+
 
 }
